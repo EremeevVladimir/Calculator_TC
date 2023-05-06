@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="result_size">50sp</dimen>
+    <dimen name="default_padding">16dp</dimen>
+    <dimen name="card_margin">4dp</dimen>
+    <dimen name="calc_btn_size">22sp</dimen>
+</resources>

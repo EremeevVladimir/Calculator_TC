@@ -15,4 +15,12 @@
     <string name="key_zero">0</string>
     <string name="key_dot">.</string>
     <string name="key_divide">/</string>
+    <string name="key_log">Log</string>
+    <string name="key_sqrt">SQRT</string>
+    <string name="key_pow">POW</string>
+    <string name="key_percent">%</string>
+    <string name="theme_one">Theme_one</string>
+    <string name="theme_two">Theme two</string>
+    <string name="theme_three">Theme tree</string>
+    <string name="theme_four">Theme four</string>
 </resources>

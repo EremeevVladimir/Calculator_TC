@@ -1,16 +1,22 @@
 package com.example.calculator_tc.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.calculator_tc.R;
 import com.example.calculator_tc.model.CalculatorImpl;
 import com.example.calculator_tc.model.Operator;
+import com.example.calculator_tc.model.Theme;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CalculatorActivity extends AppCompatActivity implements CalculatorView {
@@ -18,9 +24,21 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorV
     private TextView resultTxt;
     private CalculatorPresenter presenter;
 
+    private LinearLayout container;
+
+    private final String ARG_THEME = "ARG_THEME";
+
+    private Theme selectedTheme;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(ARG_THEME)) {
+            selectedTheme = (Theme) savedInstanceState.getSerializable(ARG_THEME);
+            setTheme(selectedTheme.getTheme());
+        }
+
         setContentView(R.layout.activity_main);
 
         resultTxt = findViewById(R.id.result);
@@ -85,6 +103,39 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorV
                 presenter.onDotPressed();
             }
         });
+
+        //обработка альтернативной кнопки
+        Button logBtn = findViewById(R.id.key_log);
+        if (logBtn != null) {
+
+        }
+
+        container = findViewById(R.id.theme_container);
+
+        if (container == null) {
+            return;
+        }
+
+        for (Theme theme: Theme.values()) {
+            View itemView = getLayoutInflater().inflate(R.layout.item_theme, container, false);
+
+            ImageView img = itemView.findViewById(R.id.img);
+            TextView txt = itemView.findViewById(R.id.txt);
+
+            img.setImageResource(theme.getImage());
+            txt.setText(theme.getTitle());
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectedTheme = theme;
+                    recreate();
+                }
+            });
+
+            container.addView(itemView);
+        }
+
     }
 
     @Override
@@ -92,5 +143,14 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorV
 
         resultTxt.setText(result);
 
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        if (selectedTheme !=null) {
+            outState.putSerializable(ARG_THEME, selectedTheme);
+        }
+        super.onSaveInstanceState(outState);
     }
 }

@@ -1,9 +1,13 @@
 package com.example.calculator_tc.ui;
 
+import com.example.calculator_tc.R;
 import com.example.calculator_tc.model.Calculator;
 import com.example.calculator_tc.model.Operator;
+import com.example.calculator_tc.model.Theme;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CalculatorPresenter {
 
@@ -32,7 +36,7 @@ public class CalculatorPresenter {
                 showFormatted (argOne);
             }
         } else {
-            if (onDotPressed == false) {
+            if (!onDotPressed) {
                 argTwo = argTwo * 10 + digit;
                 view.shouResult(String.valueOf(argTwo));
             } else {
@@ -55,8 +59,7 @@ public class CalculatorPresenter {
         selectedOperator = operator;
         onDotPressed = false;
     }
-
-    public void onDotPressed() {
+   public void onDotPressed() {
         onDotPressed = true;
     }
 
