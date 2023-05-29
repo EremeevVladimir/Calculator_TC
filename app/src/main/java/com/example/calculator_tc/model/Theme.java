@@ -6,7 +6,7 @@ import androidx.annotation.StyleRes;
 
 import com.example.calculator_tc.R;
 
-public enum Theme {
+public enum  Theme {
 
 THEME_ONE (R.string.theme_one, R.drawable.ic_baseline_5g_24, R.style.Theme_Calculator_TC, "one"),
 THEME_TWO (R.string.theme_two, R.drawable.baseline_add_24, R.style.Theme_Calculator_TC_Version2, "two"),

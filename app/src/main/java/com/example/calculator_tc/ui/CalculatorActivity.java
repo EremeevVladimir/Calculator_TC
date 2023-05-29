@@ -14,6 +14,7 @@ import com.example.calculator_tc.R;
 import com.example.calculator_tc.model.CalculatorImpl;
 import com.example.calculator_tc.model.Operator;
 import com.example.calculator_tc.model.Theme;
+import com.example.calculator_tc.storage.ThemeStorage;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,16 +29,20 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorV
 
     private final String ARG_THEME = "ARG_THEME";
 
-    private Theme selectedTheme;
+    private ThemeStorage storage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null && savedInstanceState.containsKey(ARG_THEME)) {
-            selectedTheme = (Theme) savedInstanceState.getSerializable(ARG_THEME);
-            setTheme(selectedTheme.getTheme());
-        }
+        storage = new ThemeStorage(this);
+        setTheme(storage.getTheme().getTheme());
+
+//        if (savedInstanceState != null && savedInstanceState.containsKey(ARG_THEME)) {
+//            selectedTheme = (Theme) savedInstanceState.getSerializable(ARG_THEME);
+//            setTheme(selectedTheme.getTheme());
+//        }
 
         setContentView(R.layout.activity_main);
 
@@ -116,7 +121,7 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorV
             return;
         }
 
-        for (Theme theme: Theme.values()) {
+        for (Theme theme : Theme.values()) {
             View itemView = getLayoutInflater().inflate(R.layout.item_theme, container, false);
 
             ImageView img = itemView.findViewById(R.id.img);
@@ -128,7 +133,7 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorV
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    selectedTheme = theme;
+                    storage.setTheme(theme);
                     recreate();
                 }
             });
@@ -146,11 +151,11 @@ public class CalculatorActivity extends AppCompatActivity implements CalculatorV
     }
 
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        if (selectedTheme !=null) {
-            outState.putSerializable(ARG_THEME, selectedTheme);
-        }
-        super.onSaveInstanceState(outState);
-    }
+//    @Override
+//    protected void onSaveInstanceState(@NonNull Bundle outState) {
+//        if (selectedTheme !=null) {
+//            outState.putSerializable(ARG_THEME, selectedTheme);
+//        }
+//        super.onSaveInstanceState(outState);
+//    }
 }
